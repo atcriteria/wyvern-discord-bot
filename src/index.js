@@ -1,0 +1,31 @@
+// Main entry point for bot
+require('dotenv').config();
+const token = process.env.DISCORDJS_BOT_TOKEN
+// const { token } = require('../config.json')
+const fs = require('node:fs');
+const { Collection } = require('discord.js');
+const client = require('./client');
+
+client.commands = new Collection();
+
+const commandFiles = fs.readdirSync('src/commands').filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync('src/events').filter(file => file.endsWith('.js'));
+
+// Handle Commands
+for (const file of commandFiles){
+    const command = require(`../src/commands/${file}`);
+    // Set a new item in the Collection
+    // With the key as the command name and the value as the exported module
+    client.commands.set(command.data.name, command)
+}
+// Handle Events
+for (const file of eventFiles){
+    const event = require(`../src/events/${file}`);
+    if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
+
+client.login(token);
