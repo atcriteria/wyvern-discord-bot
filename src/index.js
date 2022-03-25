@@ -1,3 +1,10 @@
+
+// Keep heroku app alive
+var http = require("http");
+setInterval(function() {
+    http.get("http://wyvern-discord-bot.herokuapp.com");
+}, 300000); // every 5 minutes (300000)
+
 // Main entry point for bot
 require('dotenv').config();
 const server = require('./api/server');
