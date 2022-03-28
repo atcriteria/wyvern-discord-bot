@@ -21,12 +21,13 @@ module.exports = {
                 const webhook = new WebhookClient({id: webhookId, token: webhookToken});
                 // This has the server time in it
                 const originFields = message.embeds.fields
+                console.log(originFields)
                 const newEmbeds = new MessageEmbed()
                     .setTitle("Automated Live Quest Starting")
                     .setDescription("Work together with other players to overcome unique challenges or defeat powerful foes.")
                     .setColor("#0099ff")
                     .setImage("https://i.pinimg.com/550x/65/e3/4b/65e34b409feb6d86376b9de87e4c08c3.jpg")
-                    .setFields(originFields)
+                    // .setFields(originFields)
                 const newMessage = {
                     username: "Wyvern Automated Live Quest Messaging System",
                     avatarURL: "https://i.imgur.com/lna0M5y.png",
