@@ -21,7 +21,7 @@ module.exports = {
                 const webhook = new WebhookClient({id: webhookId, token: webhookToken});
                 const originalEmbed = message.embeds[0];
                 const originalFields = originalEmbed.fields;
-                console.log(originFields)
+                console.log(originalFields)
                 console.log(originalEmbed)
                 const newEmbeds = new MessageEmbed()
                     .setTitle(originalEmbed.title)
