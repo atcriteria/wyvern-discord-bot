@@ -19,15 +19,16 @@ module.exports = {
             if (channel === lqannouncements && hookId){
                 console.log("Hooked message, forward to other server")
                 const webhook = new WebhookClient({id: webhookId, token: webhookToken});
-                // This has the server time in it
-                const originFields = message.embeds.fields
+                const originalEmbed = message.embeds[0];
+                const originalFields = originalEmbed.fields;
                 console.log(originFields)
+                console.log(originalEmbed)
                 const newEmbeds = new MessageEmbed()
-                    .setTitle("Automated Live Quest Starting")
-                    .setDescription("Work together with other players to overcome unique challenges or defeat powerful foes.")
+                    .setTitle(originalEmbed.title)
+                    .setDescription(originalEmbed.description)
                     .setColor("#0099ff")
                     .setImage("https://i.pinimg.com/550x/65/e3/4b/65e34b409feb6d86376b9de87e4c08c3.jpg")
-                    // .setFields(originFields)
+                    .setFields(originalFields)
                 const newMessage = {
                     username: "Wyvern Automated Live Quest Messaging System",
                     avatarURL: "https://i.imgur.com/lna0M5y.png",
