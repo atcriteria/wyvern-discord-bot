@@ -1,16 +1,13 @@
-const { MessageEmbed, WebhookClient } = require('discord.js')
-const webhookId = process.env.TOE_WEBHOOK_ID
-const webhookToken = process.env.TOE_WEBHOOK_TOKEN
+const { MessageEmbed } = require('discord.js')
+const { getLQData } = require("../util/data")
 
 
-// Currently hardwired to forward the Wyvern Game's DiscordWebhook message to
-// Toe's Discord channel. For future use with the 'messageCreate' event you
-// should pull the code that handles this functionality to its own module
-// and import it back to clean this up.
+// No longer supporting the forwarding to other servers
+// In the future, the Wyvern Server may become a community server
+// and then anyone can subscribe to our LQ announcements channel
 module.exports = {
 	name: 'messageCreate',
 	async execute(message){
-        console.log(message);
         try {
             const channel = message.channelId;
             const lqannouncements = "900086774141956216"
@@ -18,28 +15,30 @@ module.exports = {
             const hookId = message.webhookId;
             // If the message was created in the LQ-Announcements channel and it is a Webhook message
             if (channel === lqannouncements && hookId){
+                console.log(message);
                 if (message.content === "LRD"){
                     console.log("Sending message to Application, shouldn't see discord message");
                     message.content = "";
                 } else {
-                    console.log("Hooked message, forward to other server")
-                    const webhook = new WebhookClient({id: webhookId, token: webhookToken});
+                    // Create a new message, nuke the original, and send the new message to the channel
                     const originalEmbed = message.embeds[0];
                     const originalFields = originalEmbed.fields;
-                    console.log(originalFields)
-                    console.log(originalEmbed)
+                    const data = getLQData(originalEmbed.description)
                     const newEmbeds = new MessageEmbed()
-                        .setTitle(originalEmbed.title)
+                        .setTitle(data["title"])
                         .setDescription(originalEmbed.description)
-                        .setColor("#0099ff")
-                        .setImage("https://i.pinimg.com/550x/65/e3/4b/65e34b409feb6d86376b9de87e4c08c3.jpg")
+                        .setColor(data["color"])
+                        .setImage(data["image"])
                         .setFields(originalFields)
                     const newMessage = {
                         username: "Wyvern Automated Live Quest Messaging System",
                         avatarURL: "https://i.imgur.com/lna0M5y.png",
                         embeds: [newEmbeds]
                     }
-                    webhook.send(newMessage).catch(console.error);
+                    // @LQ ping
+                    newMessage.content = "<@&690215508393590784>"
+                    await message.delete();
+                    message.channel.send(newMessage)
                 }
             }
         } catch (e) {
