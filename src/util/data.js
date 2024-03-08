@@ -51,17 +51,18 @@ const lqData = {
 
 const getLQData = (description) => {
     let p = description.includes("vanquishing")
-    let d = { data: p ? lqData["default"] : lqData["concluded"], ping: !p}
+    let data = !p ? lqData["default"] : lqData["concluded"]
     if (!p){
-        if (description.includes("Zyxxryth")) d:data = lqData["zyxxryth"]
-        if (description.includes("Polyphemus")) d:data = lqData["polyphemus"]
-        if (description.includes("Bauhdyre")) d:data = lqData["bauhdyre"]
-        if (description.includes("Gauntlet")) d:data = lqData["gauntlet"]
-        if (description.includes("gander")) d:data = lqData["gander"]
-        if (description.includes("Entremitis")) d:data = lqData["entremitis"]
-        if (description.includes("Henteko")) d:data = lqData["yinyang"]
+        if (description.includes("Zyxxryth")) data = lqData["zyxxryth"]
+        if (description.includes("Polyphemus")) data = lqData["polyphemus"]
+        if (description.includes("Bauhdyre")) data = lqData["bauhdyre"]
+        if (description.includes("Gauntlet")) data = lqData["gauntlet"]
+        if (description.includes("gander")) data = lqData["gander"]
+        if (description.includes("Entremitis")) data = lqData["entremitis"]
+        if (description.includes("Henteko")) data = lqData["yinyang"]
     }
-    return d
+    console.log(data)
+    return {data: data, ping: !p}
 }
 
 module.exports = {lqData, getLQData};
