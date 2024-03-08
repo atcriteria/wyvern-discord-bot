@@ -18,7 +18,7 @@ module.exports = {
                 console.log(message);
                 if (message.content === "LRD"){
                     console.log("Sending message to Application, shouldn't see discord message");
-                    message.content = "";
+                    await message.delete();
                 } else {
                     // Create a new message, nuke the original, and send the new message to the channel
                     const originalEmbed = message.embeds[0];
