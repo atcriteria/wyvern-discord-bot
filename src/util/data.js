@@ -20,7 +20,7 @@ const lqData = {
     "entremitis": {
         "title": "Fields of Valor - Entremitis",
         "color": "#43D9C0",
-        "image": "blob:https://imgur.com/343816d9-f183-4cb3-ad7f-207b0dcda3d6",
+        "image": "https://i.imgur.com/0bQzPZH.jpeg",
     },
     "gander": {
         "title": "Khaytsi Farms - Mad Gander",
