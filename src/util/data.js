@@ -41,18 +41,27 @@ const lqData = {
         "title": "Automated Live Quest",
         "color": "#8FAFAF",
         "image": "https://i.pinimg.com/550x/65/e3/4b/65e34b409feb6d86376b9de87e4c08c3.jpg",
+    },
+    "concluded": {
+        "title": "A Boss has been Felled",
+        "color": "#FF88C5",
+        "image": "https://i.imgur.com/aFC4ZSf.png"
     }
 }
 
 const getLQData = (description) => {
-    if (description.includes("Zyxxryth")) return lqData["zyxxryth"]
-    if (description.includes("Polyphemus")) return lqData["polyphemus"]
-    if (description.includes("Bauhdyre")) return lqData["bauhdyre"]
-    if (description.includes("Gauntlet")) return lqData["gauntlet"]
-    if (description.includes("gander")) return lqData["gander"]
-    if (description.includes("Entremitis")) return lqData["entremitis"]
-    if (description.includes("Henteko")) return lqData["yinyang"]
-    return lqData["default"]
+    let p = description.includes("vanquishing")
+    let d = { data: p ? lqData["default"] : lqData["concluded"], ping: !p}
+    if (!p){
+        if (description.includes("Zyxxryth")) d:data = lqData["zyxxryth"]
+        if (description.includes("Polyphemus")) d:data = lqData["polyphemus"]
+        if (description.includes("Bauhdyre")) d:data = lqData["bauhdyre"]
+        if (description.includes("Gauntlet")) d:data = lqData["gauntlet"]
+        if (description.includes("gander")) d:data = lqData["gander"]
+        if (description.includes("Entremitis")) d:data = lqData["entremitis"]
+        if (description.includes("Henteko")) d:data = lqData["yinyang"]
+    }
+    return d
 }
 
 module.exports = {lqData, getLQData};

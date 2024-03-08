@@ -25,18 +25,18 @@ module.exports = {
                     const originalFields = originalEmbed.fields;
                     const data = getLQData(originalEmbed.description)
                     const newEmbeds = new MessageEmbed()
-                        .setTitle(data["title"])
+                        .setTitle(data.data["title"])
                         .setDescription(originalEmbed.description)
-                        .setColor(data["color"])
-                        .setImage(data["image"])
+                        .setColor(data.data["color"])
+                        .setImage(data.data["image"])
                         .setFields(originalFields)
                     const newMessage = {
                         username: "Wyvern Automated Live Quest Messaging System",
                         avatarURL: "https://i.imgur.com/lna0M5y.png",
                         embeds: [newEmbeds]
                     }
-                    // @LQ ping
-                    newMessage.content = "<@&690215508393590784>"
+                    // @LQ ping -- only when announcing an LQ, not on conclusion
+                    newMessage.content = data.ping ? "<@&690215508393590784>" : ""
                     await message.delete();
                     message.channel.send(newMessage)
                 }
