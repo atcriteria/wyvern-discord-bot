@@ -50,7 +50,7 @@ const lqData = {
 }
 
 const getLQData = (description) => {
-    let p = description.includes("vanquishing")
+    let p = description.includes("has led the battle")
     let data = !p ? lqData["default"] : lqData["concluded"]
     if (!p){
         if (description.includes("Zyxxryth")) data = lqData["zyxxryth"]
