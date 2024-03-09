@@ -37,7 +37,7 @@ module.exports = {
                     }
                     // @LQ ping -- only when announcing an LQ, not on conclusion
                     newMessage.content = data.ping ? "<@&690215508393590784>" : "."
-                    // await message.delete();
+                    await message.delete();
                     message.channel.send(newMessage)
                 }
             }
