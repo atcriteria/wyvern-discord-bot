@@ -11,6 +11,7 @@
 // }
 
 const roles = {
+    "1f5a5": "1218947003552104598", // News Role add
     "1f4d7": "690215508393590784", // LQ Role add, :green_book: emoji
     "2694": "399753730477654017", // Paladin Guild Role
     "1fa93": "399753603620929537", // Axeman Guild Role

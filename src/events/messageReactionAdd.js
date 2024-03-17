@@ -7,7 +7,6 @@ module.exports = {
 	name: 'messageReactionAdd',
 	execute(reaction, user){
         try {
-            console.log("Adding reaction")
             const messageID = reaction.message.id;
             if (trackedRoleMessages[messageID]){
                 const isValidReaction = validateReactionEmoji(reaction);
