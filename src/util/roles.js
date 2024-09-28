@@ -19,7 +19,8 @@ const roles = {
     "1f9d9": "399753781287583754", // Mage Guild Role
     "1f648": "399753992701476864", // Monk Guild Role
     "1f977": "399754128768892929", // Ninja Guild Role
-    "1f3f9": "399754402040119297" // Archer Guild Role
+    "1f3f9": "399754402040119297", // Archer Guild Role
+    "1f3f4": "1289670892091342930" // Pirate Guild Role
 }
 
 module.exports = roles;
