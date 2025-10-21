@@ -15,6 +15,9 @@ const fs = require('node:fs');
 const { Collection } = require('discord.js');
 const client = require('./client');
 
+// Deploy commands when bot starts
+const deployCommands = require('./deploy_commands');
+
 client.commands = new Collection();
 
 const commandFiles = fs.readdirSync('src/commands').filter(file => file.endsWith('.js'));
