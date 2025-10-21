@@ -1,3 +1,5 @@
+// COMMENTED OUT - Command unregistered
+/*
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -12,3 +14,4 @@ module.exports = {
         }
     },
 };
+*/

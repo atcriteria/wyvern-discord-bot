@@ -1,3 +1,5 @@
+// COMMENTED OUT - Command unregistered
+/*
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 // Takes an emoji and returns the unicode value of it
@@ -17,3 +19,4 @@ module.exports = {
         }
     },
 };
+*/
