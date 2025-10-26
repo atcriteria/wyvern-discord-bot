@@ -21,7 +21,7 @@
     "express": "^4.17.3",
     "http": "^0.0.1-security",
     "node": "^16.14.0",
-    "snoowrap": "^1.23.0"
+    "snoowrap": "^1.15.2"
   },
   "devDependencies": {
     "eslint": "^8.11.0",

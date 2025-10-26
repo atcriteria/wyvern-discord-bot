@@ -8,7 +8,7 @@ setInterval(function() {
 // Main entry point for bot
 require('dotenv').config();
 const server = require('./api/server');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6149;
 const token = process.env.DISCORDJS_BOT_TOKEN
 // const { token } = require('../config.json')
 const fs = require('node:fs');
@@ -28,6 +28,7 @@ for (const file of commandFiles){
     const command = require(`../src/commands/${file}`);
     // Set a new item in the Collection
     // With the key as the command name and the value as the exported module
+    if (command.data == null || command.data.name == undefined) continue;
     client.commands.set(command.data.name, command)
 }
 // Handle Events

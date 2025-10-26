@@ -3,13 +3,37 @@ const { getLQData } = require("../util/data")
 // Reddit wrapper
 const snoowrap = require('snoowrap');
 
-const reddit = new snoowrap({
-    userAgent: process.env.REDDIT_USER_AGENT,
-    clientId: process.env.REDDIT_CLIENT_ID,
-    clientSecret: process.env.REDDIT_CLIENT_SECRET,
-    username: process.env.REDDIT_USERNAME,
-    password: process.env.REDDIT_PASSWORD,
-});
+// Initialize Reddit client only when needed and with proper error handling
+let reddit = null;
+
+const initializeReddit = () => {
+    if (reddit) return reddit;
+    
+    try {
+        // Check if all required environment variables are present
+        const requiredVars = ['REDDIT_USER_AGENT', 'REDDIT_CLIENT_ID', 'REDDIT_CLIENT_SECRET', 'REDDIT_USERNAME', 'REDDIT_PASSWORD'];
+        const missingVars = requiredVars.filter(varName => !process.env[varName]);
+        
+        if (missingVars.length > 0) {
+            console.warn(`Reddit integration disabled: Missing environment variables: ${missingVars.join(', ')}`);
+            return null;
+        }
+        
+        reddit = new snoowrap({
+            userAgent: process.env.REDDIT_USER_AGENT,
+            clientId: process.env.REDDIT_CLIENT_ID,
+            clientSecret: process.env.REDDIT_CLIENT_SECRET,
+            username: process.env.REDDIT_USERNAME,
+            password: process.env.REDDIT_PASSWORD,
+        });
+        
+        console.log('Reddit client initialized successfully');
+        return reddit;
+    } catch (error) {
+        console.error('Failed to initialize Reddit client:', error);
+        return null;
+    }
+};
 
 // No longer supporting the forwarding to other servers
 // In the future, the Wyvern Server may become a community server
@@ -44,10 +68,15 @@ module.exports = {
                 // Replace the role mention with an empty string
                 const trimmedContent = content.replace(roleMentionRegex, '');
 
-                reddit.getSubreddit("wyvernrpg").submitSelfpost({
-                    title: `Wyvern Patch Notes (${author}): ${month}/${day}/${year}`,
-                    text: trimmedContent
-                }).then(submission => console.log('Posted to Reddit', submission.url)).catch(console.error)
+                const redditClient = initializeReddit();
+                if (redditClient) {
+                    redditClient.getSubreddit("wyvernrpg").submitSelfpost({
+                        title: `Wyvern Patch Notes (${author}): ${month}/${day}/${year}`,
+                        text: trimmedContent
+                    }).then(submission => console.log('Posted to Reddit', submission.url)).catch(console.error)
+                } else {
+                    console.log('Reddit posting skipped: Reddit client not available');
+                }
             }
             // If the message was created in the LQ-Announcements channel and it is a Webhook message
             if (channel === lqannouncements && hookId){
