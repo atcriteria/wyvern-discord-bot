@@ -33,7 +33,7 @@ module.exports = {
             const statusEmoji = server.online ? '✅' : '❌';
             
             // Format the response message
-            const message = `Server Status: ${statusEmoji} ${server.online}\nOnline: ${server.players}\nUptime: ${server.uptime}`;
+            const message = `Server Status: ${statusEmoji}\nOnline: ${server.players}\nUptime: ${server.uptime}`;
             
             await interaction.reply(message);
         } catch (e) {
